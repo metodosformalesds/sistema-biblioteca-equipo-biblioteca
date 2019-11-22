@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApp_Biblioteca.Models.EntidadesBiblioteca.SP_S_tipoPrestamo_Result>
+
+@{
+    ViewBag.Title = "ListaTipoPrestamos";
+}
+
+<h2>ListaTipoPrestamos</h2>
+
+<p>
+    @Html.ActionLink("Agregar nuevo tipo de prestamo", "AgregarTipoPrestamo")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idTipoPrestamo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombrePrestamo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idTipoPrestamo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombrePrestamo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Borrar", "BorrarTipoPrestamo", new { idTipoPrestamo = item.idTipoPrestamo })
+            </td>
+        </tr>
+    }
+
+</table>

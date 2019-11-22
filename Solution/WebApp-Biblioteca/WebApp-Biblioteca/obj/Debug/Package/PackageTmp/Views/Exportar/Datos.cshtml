@@ -1,0 +1,55 @@
+﻿@*@model IEnumerable<WebApp_Biblioteca.Models.EntidadesBiblioteca.SP_Select_dataset_Result>*@
+@using System.Data
+@model DataTable
+@{
+    ViewBag.Title = "Datos";
+}
+
+<style>
+    a:hover {
+        text-decoration: none;
+        color: white;
+    }
+    a {
+        color: white;
+    }
+    .btn {
+        margin: 5px;
+    }
+</style>
+
+<h2>Exportar Datos</h2>
+
+
+<form method="post">
+    <button class="btn btn-primary btn-success" value="1" name="borrar"><a href="@Url.Action("ReportePrestamos","Exportar")">Descargar Reporte de préstamos</a></button>
+    <button class="btn btn-primary btn-success" value="1" name="borrar"><a href="@Url.Action("DescargarReporte","Exportar")">Descargar Reporte de preguntas</a></button>
+    <button class="btn btn-primary btn-success" value="0" name="borrar">
+        Recuperar Datos
+    </button>
+    <button class="btn btn-primary btn-danger" value="1" name="borrar">
+        Borrar Datos
+    </button>
+    
+</form>
+<table cellpadding="0" cellspacing="0" class="table">
+    <tr>
+        @foreach (DataColumn col in Model.Columns)
+        {
+            <th>@col.ColumnName</th>
+        }
+
+    </tr>
+    @foreach (DataRow row in Model.Rows)
+    {
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                <td>@row[col.ColumnName]</td>
+            }
+        </tr>
+    }
+</table>
+
+
+

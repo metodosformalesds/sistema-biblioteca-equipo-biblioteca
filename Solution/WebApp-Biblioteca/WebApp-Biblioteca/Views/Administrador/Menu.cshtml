@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+<style>
+    .btn-squared-default-plain {
+        width: 300px !important;
+        height: 300px !important;
+        font-size: 40px;
+        margin: 10px;
+    }
+
+        .btn-squared-default-plain:hover {
+            border: 0px solid white;
+        }
+</style>
+<h2>Menu</h2>
+
+
+<a href="@Url.Action("ListaPreguntas","Pregunta")" class="btn btn-squared-default-plain btn-primary"><br /><br />Preguntas</a>
+<a href="@Url.Action("ListaTipoPrestamos","TipoPrestamo")" class="btn btn-squared-default-plain btn-success"><br /><br />Prestamos</a>
+<a href="@Url.Action("Datos","Exportar")" class="btn btn-squared-default-plain btn-warning"><br /><br />Reporte</a>
+<a href="@Url.Action("LogOff", "Administrador",FormMethod.Post)" class="btn btn-squared-default-plain btn-danger"><br /><br />Cerrar Sesión</a>

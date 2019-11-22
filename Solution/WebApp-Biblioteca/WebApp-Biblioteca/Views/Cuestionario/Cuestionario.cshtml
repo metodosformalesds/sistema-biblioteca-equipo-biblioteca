@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebApp_Biblioteca.Models.EntidadesBiblioteca.SP_S_preguntasFaltantes_Result>
+
+@{
+    ViewBag.Title = "Cuestionario";
+}
+<form method="post" name="datos">
+    @{
+
+        foreach (var item in Model)
+        {
+
+            if (item.tipoDeDato == "Número entero")
+            {
+                @* Numero *@
+                <div class="container ">
+                    <div class="row col-md-6">
+                        <div class="alert alert-info">
+                            <h3>@item.titulo</h3>
+                            <input type="number" class="form-control" style="min-width: 100%;" required="required" name="@item.idPregunta" />
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (@item.tipoDeDato == "Texto")
+            {
+                @* Texto *@
+                <div class="container ">
+                    <div class="row col-md-6">
+                        <div class="alert alert-info">
+                            <h3>@item.titulo</h3>
+                            <input type="text" class="form-control" style="min-width: 100%;" required="required" name="@item.idPregunta" />
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (@item.tipoDeDato == "Si/No")
+            {
+                @* Si/No *@
+                <div class="container ">
+                    <div class="row col-md-6">
+                        <div class="alert alert-info">
+                            <h3>@item.titulo</h3>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="@item.idPregunta" id="optionsRadios1" value="Si" checked>
+                                    Si
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="@item.idPregunta" id="optionsRadios2" value="No">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @* Array *@
+                <div class="container ">
+                    <div class="row col-md-6">
+                        <div class="alert alert-info">
+                            <h3>@item.titulo</h3>
+                            <select class="form-control" style="min-width: 100%;" required="required" name="@item.idPregunta" id="z-@item.idPregunta"></select>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+    <input type="submit" value="Enviar" class="btn btn-primary btn-success" />
+</form>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+
+@{
+    foreach (SelectListItem item in ViewBag.listaRespuestas)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+            optionText = '@item.Text';
+            optionValue = '@item.Value';
+
+            $('#z-@item.Value').append(`<option value="${optionText}">
+                                        ${optionText}
+                                    </option>`);
+});
+        </script>
+    }
+}

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Exito";
+}
+
+<h2 class="alert alert-success">Se registraron tus datos con éxito</h2>
+<h5>En 5 segundos serás redireccionado a la <a href="http://webappbiblioteca-dev.us-west-1.elasticbeanstalk.com">página principal</a></h5>
+
+<script>
+         setTimeout(function(){
+            window.location.href = 'http://webappbiblioteca-dev.us-west-1.elasticbeanstalk.com';
+         }, 5000);
+</script>

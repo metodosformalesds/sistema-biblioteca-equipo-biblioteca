@@ -1,0 +1,64 @@
+﻿@model WebApp_Biblioteca.Models.EntidadesBiblioteca.Pregunta
+
+@{
+    ViewBag.Title = "Borrar pregunta";
+}
+
+<h2>View</h2>
+
+<h3>¿Está seguro que desea borrar la pregunta?</h3>
+<div>
+    <h4>Pregunta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idPregunta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPregunta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoDeDato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoDeDato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.respuestas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.respuestas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "ListaPreguntas")
+        </div>
+    }
+</div>

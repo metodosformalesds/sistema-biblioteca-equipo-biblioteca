@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebApp_Biblioteca.Models.EntidadesBiblioteca.SP_S_tipoPrestamo_Result>
+
+@{
+    ViewBag.Title = "ElegirPrestamo";
+}
+<style>
+    .btn-squared-default-plain {
+        width: 300px !important;
+        height: 300px !important;
+        font-size: 40px;
+        margin: 10px;
+    }
+
+        .btn-squared-default-plain:hover {
+            border: 0px solid white;
+        }
+</style>
+<h2>Elegir Prestamo</h2>
+
+<form method="post">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="alert alert-success">Selecciona un servicio</h2>
+                <p>
+                    @foreach (var item in Model)
+                    {
+                        <button value="@item.idTipoPrestamo" name="@item.nombrePrestamo" class="btn btn-squared-default-plain btn-primary">
+                            <i class="fa fa-android fa-5x"></i>
+                            @Html.DisplayFor(modelItem => item.nombrePrestamo)
+                        </button>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</form>

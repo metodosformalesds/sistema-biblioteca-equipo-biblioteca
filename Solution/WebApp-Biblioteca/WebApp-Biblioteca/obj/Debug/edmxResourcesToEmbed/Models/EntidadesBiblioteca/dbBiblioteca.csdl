@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Administrador">
+    <Key>
+      <PropertyRef Name="idAdministrador" />
+    </Key>
+    <Property Name="idAdministrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Preguntas" Relationship="Self.FK__Pregunta__creada__5629CD9C" FromRole="Administrador" ToRole="Pregunta" />
+    <NavigationProperty Name="TipoPrestamoes" Relationship="Self.FK__TipoPrest__cread__4BAC3F29" FromRole="Administrador" ToRole="TipoPrestamo" />
+    <Property Name="contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Alumno">
+    <Key>
+      <PropertyRef Name="idAlumno" />
+    </Key>
+    <Property Name="idAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matricula" Type="Int32" />
+    <Property Name="completoCuestionario" Type="Boolean" />
+    <NavigationProperty Name="Prestamoes" Relationship="Self.FK__Prestamo__idAlum__5070F446" FromRole="Alumno" ToRole="Prestamo" />
+    <NavigationProperty Name="Respuestas" Relationship="Self.FK__Respuesta__idAlu__59FA5E80" FromRole="Alumno" ToRole="Respuesta" />
+  </EntityType>
+  <EntityType Name="Pregunta">
+    <Key>
+      <PropertyRef Name="idPregunta" />
+    </Key>
+    <Property Name="idPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="tipoDeDato" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="respuestas" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="creadaPor" Type="Int32" />
+    <NavigationProperty Name="Administrador" Relationship="Self.FK__Pregunta__creada__5629CD9C" FromRole="Pregunta" ToRole="Administrador" />
+    <NavigationProperty Name="Respuestas1" Relationship="Self.FK__Respuesta__idPre__59063A47" FromRole="Pregunta" ToRole="Respuesta" />
+    <Property Name="visible" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Prestamo">
+    <Key>
+      <PropertyRef Name="idPrestamo" />
+    </Key>
+    <Property Name="idPrestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="idTipoPrestamo" Type="Int32" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK__Prestamo__idAlum__5070F446" FromRole="Prestamo" ToRole="Alumno" />
+    <NavigationProperty Name="TipoPrestamo" Relationship="Self.FK__Prestamo__idTipo__5165187F" FromRole="Prestamo" ToRole="TipoPrestamo" />
+  </EntityType>
+  <EntityType Name="Respuesta">
+    <Key>
+      <PropertyRef Name="idRespuesta" />
+    </Key>
+    <Property Name="idRespuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPregunta" Type="Int32" />
+    <Property Name="respuesta1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="fechaRespuesta" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK__Respuesta__idAlu__59FA5E80" FromRole="Respuesta" ToRole="Alumno" />
+    <NavigationProperty Name="Pregunta" Relationship="Self.FK__Respuesta__idPre__59063A47" FromRole="Respuesta" ToRole="Pregunta" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoPrestamo">
+    <Key>
+      <PropertyRef Name="idTipoPrestamo" />
+    </Key>
+    <Property Name="idTipoPrestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombrePrestamo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="creadoPor" Type="Int32" />
+    <NavigationProperty Name="Administrador" Relationship="Self.FK__TipoPrest__cread__4BAC3F29" FromRole="TipoPrestamo" ToRole="Administrador" />
+    <NavigationProperty Name="Prestamoes" Relationship="Self.FK__Prestamo__idTipo__5165187F" FromRole="TipoPrestamo" ToRole="Prestamo" />
+    <Property Name="visible" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK__Pregunta__creada__5629CD9C">
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+    <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrador">
+        <PropertyRef Name="idAdministrador" />
+      </Principal>
+      <Dependent Role="Pregunta">
+        <PropertyRef Name="creadaPor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TipoPrest__cread__4BAC3F29">
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+    <End Role="TipoPrestamo" Type="Self.TipoPrestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrador">
+        <PropertyRef Name="idAdministrador" />
+      </Principal>
+      <Dependent Role="TipoPrestamo">
+        <PropertyRef Name="creadoPor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prestamo__idAlum__5070F446">
+    <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Respuesta__idAlu__59FA5E80">
+    <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
+    <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="Respuesta">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Respuesta__idPre__59063A47">
+    <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
+    <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pregunta">
+        <PropertyRef Name="idPregunta" />
+      </Principal>
+      <Dependent Role="Respuesta">
+        <PropertyRef Name="idPregunta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prestamo__idTipo__5165187F">
+    <End Role="TipoPrestamo" Type="Self.TipoPrestamo" Multiplicity="0..1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoPrestamo">
+        <PropertyRef Name="idTipoPrestamo" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="idTipoPrestamo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Administradors" EntityType="Self.Administrador" />
+    <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
+    <EntitySet Name="Preguntas" EntityType="Self.Pregunta" />
+    <EntitySet Name="Prestamoes" EntityType="Self.Prestamo" />
+    <EntitySet Name="Respuestas" EntityType="Self.Respuesta" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TipoPrestamoes" EntityType="Self.TipoPrestamo" />
+    <AssociationSet Name="FK__Pregunta__creada__5629CD9C" Association="Self.FK__Pregunta__creada__5629CD9C">
+      <End Role="Administrador" EntitySet="Administradors" />
+      <End Role="Pregunta" EntitySet="Preguntas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TipoPrest__cread__4BAC3F29" Association="Self.FK__TipoPrest__cread__4BAC3F29">
+      <End Role="Administrador" EntitySet="Administradors" />
+      <End Role="TipoPrestamo" EntitySet="TipoPrestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prestamo__idAlum__5070F446" Association="Self.FK__Prestamo__idAlum__5070F446">
+      <End Role="Alumno" EntitySet="Alumnoes" />
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Respuesta__idAlu__59FA5E80" Association="Self.FK__Respuesta__idAlu__59FA5E80">
+      <End Role="Alumno" EntitySet="Alumnoes" />
+      <End Role="Respuesta" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Respuesta__idPre__59063A47" Association="Self.FK__Respuesta__idPre__59063A47">
+      <End Role="Pregunta" EntitySet="Preguntas" />
+      <End Role="Respuesta" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prestamo__idTipo__5165187F" Association="Self.FK__Prestamo__idTipo__5165187F">
+      <End Role="TipoPrestamo" EntitySet="TipoPrestamoes" />
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_login_administrador" ReturnType="Collection(String)">
+      <Parameter Name="correo" Mode="In" Type="String" />
+      <Parameter Name="contrasena" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SP_S_Preguntas" ReturnType="Collection(Model.SP_S_Preguntas_Result)" />
+    <FunctionImport Name="SP_I_pregunta">
+      <Parameter Name="titulo" Mode="In" Type="String" />
+      <Parameter Name="tipoDeDato" Mode="In" Type="String" />
+      <Parameter Name="respuestas" Mode="In" Type="String" />
+      <Parameter Name="creadaPor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_D_borrarPregunta">
+      <Parameter Name="idPregunta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_D_tipoPrestamo">
+      <Parameter Name="idTipoPrestamo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_I_tipoPrestamo">
+      <Parameter Name="nombrePrestamo" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_S_tipoPrestamo" ReturnType="Collection(Model.SP_S_tipoPrestamo_Result)" />
+    <FunctionImport Name="SP_I_Prestamo">
+      <Parameter Name="idAlumno" Mode="In" Type="Int32" />
+      <Parameter Name="idTipoPrestamo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_I_alumno">
+      <Parameter Name="matricula" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_S_preguntasFaltantes" ReturnType="Collection(Model.SP_S_preguntasFaltantes_Result)">
+      <Parameter Name="idAlumno" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_U_completoCuestionario">
+      <Parameter Name="idAlumno" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_U_desacompletarCuestionario" />
+    <FunctionImport Name="SP_I_respuesta">
+      <Parameter Name="idPregunta" Mode="In" Type="Int32" />
+      <Parameter Name="respuesta" Mode="In" Type="String" />
+      <Parameter Name="idAlumno" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="database_firewall_rules" EntityType="Model.database_firewall_rules" />
+    <FunctionImport Name="sp_D_borrarRespuestas" />
+    <FunctionImport Name="sp_recuperarInformacion" />
+    <FunctionImport Name="sp_respaldarInformacion" />
+    <FunctionImport Name="sp_D_datosHistoricos" />
+    <FunctionImport Name="SP_S_datos" />
+    <FunctionImport Name="SP_S_dataset" />
+    <FunctionImport Name="SP_Select_dataset" ReturnType="Collection(Model.SP_Select_dataset_Result)" />
+    <FunctionImport Name="SP_Select_dataset1" ReturnType="Collection(Model.SP_Select_dataset_Result)" />
+    <EntitySet Name="datosHistoricos" EntityType="Model.datosHistoricos" />
+    <EntitySet Name="vw_datosHistoricos" EntityType="Model.vw_datosHistoricos" />
+    <EntitySet Name="historicoPrestamo" EntityType="Model.historicoPrestamo" />
+    <EntitySet Name="vw_reportePrestamos" EntityType="Model.vw_reportePrestamos" />
+    <FunctionImport Name="SP_respaldarPrestamos" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_S_Preguntas_Result">
+    <Property Type="Int32" Name="idPregunta" Nullable="false" />
+    <Property Type="String" Name="titulo" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="tipoDeDato" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="respuestas" Nullable="true" MaxLength="2000" />
+    <Property Type="DateTime" Name="fechaCreacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="creadaPor" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_S_tipoPrestamo_Result">
+    <Property Type="Int32" Name="idTipoPrestamo" Nullable="false" />
+    <Property Type="String" Name="nombrePrestamo" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="descripcion" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="creadoPor" Nullable="true" />
+    <Property Type="Boolean" Name="visible" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_S_preguntasFaltantes_Result">
+    <Property Type="Int32" Name="idPregunta" Nullable="false" />
+    <Property Type="String" Name="titulo" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="tipoDeDato" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="respuestas" Nullable="true" MaxLength="2000" />
+    <Property Type="DateTime" Name="fechaCreacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="creadaPor" Nullable="true" />
+    <Property Type="Boolean" Name="visible" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <ComplexType Name="SP_Select_dataset_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="idAlumno" Nullable="true" />
+    <Property Type="String" Name="Sexo" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Edad" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Instituto" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Etnia" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Carrera" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="Semestre" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="WAU" Nullable="true" MaxLength="255" />
+  </ComplexType>
+  <EntityType Name="datosHistoricos">
+    <Key>
+      <PropertyRef Name="idRegistro" />
+    </Key>
+    <Property Name="idRegistro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPregunta" Type="Int32" />
+    <Property Name="respuesta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="fechaRespuesta" Type="DateTime" Precision="3" />
+    <Property Name="fechaBorrado" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="vw_datosHistoricos">
+    <Key>
+      <PropertyRef Name="idRegistro" />
+    </Key>
+    <Property Name="idRegistro" Type="Int32" Nullable="false" />
+    <Property Name="titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="respuesta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="fechaRespuesta" Type="DateTime" Precision="3" />
+    <Property Name="fechaBorrado" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="historicoPrestamo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="TipoPrestamo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="vw_reportePrestamos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idAlumno" Type="Int32" />
+    <Property Name="TipoPrestamo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

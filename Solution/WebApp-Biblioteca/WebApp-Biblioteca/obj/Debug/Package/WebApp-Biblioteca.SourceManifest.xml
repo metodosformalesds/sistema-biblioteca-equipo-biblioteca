@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="C:\Users\M18XR1\Desktop\WebApp Biblioteca\Solution\WebApp-Biblioteca\WebApp-Biblioteca\obj\Debug\Package\PackageTmp" />
+  <setAcl path="C:\Users\M18XR1\Desktop\WebApp Biblioteca\Solution\WebApp-Biblioteca\WebApp-Biblioteca\obj\Debug\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\M18XR1\Desktop\WebApp Biblioteca\Solution\WebApp-Biblioteca\WebApp-Biblioteca\obj\Debug\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

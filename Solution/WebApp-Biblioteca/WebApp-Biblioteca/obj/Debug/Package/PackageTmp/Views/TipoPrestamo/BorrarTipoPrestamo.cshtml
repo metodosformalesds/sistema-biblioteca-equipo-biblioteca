@@ -1,0 +1,40 @@
+﻿@model WebApp_Biblioteca.Models.EntidadesBiblioteca.TipoPrestamo
+
+@{
+    ViewBag.Title = "BorrarTipoPrestamo";
+}
+
+<h2>Borrar Tipo de Prestamo</h2>
+
+<h3>¿Está seguro que desea borrar este tipo de prestamo?</h3>
+<div>
+    <h4>TipoPrestamo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombrePrestamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombrePrestamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "ListaTipoPrestamos")
+        </div>
+    }
+</div>
