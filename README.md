@@ -7,3 +7,6 @@ Credenciales de adminsitrador:
 
 Correo: admin@prueba.com
 Contrasña: 1
+
+
+Usar Developer Tools para ver en resolución de iPad
